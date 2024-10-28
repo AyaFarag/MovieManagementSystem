@@ -2,6 +2,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Graph;
 using Microsoft.Graph.Models;
+using MovieSystem.Application.Repository.Interface;
+using MovieSystem.Infrastructure.Presistance.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,12 +16,8 @@ namespace MovieSystem.Infrastructure.Presistance.Configrations
     {
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
         {
-            //
-            //
-            //
-            //
-            //
-            //
+            services.AddScoped<IMovieRepository, MovieRepository>();
+
             return services;
         }
 

@@ -1,10 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MovieSystem.Application.Contracts.Interface;
+using MovieSystem.Application.Contracts.Service;
+
 
 namespace MovieSystem.Application.Configrations
 {
@@ -12,12 +10,9 @@ namespace MovieSystem.Application.Configrations
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
         {
-            //
-            //
-            //
-            //
-            //
-            //
+            services.AddScoped<IMovieService, MovieService>();
+
+
             return services;
         }
     }
