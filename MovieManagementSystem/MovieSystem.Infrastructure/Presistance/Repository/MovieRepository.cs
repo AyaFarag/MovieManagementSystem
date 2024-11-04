@@ -1,4 +1,5 @@
-﻿using MovieSystem.Application.Repository.Interface;
+﻿using Microsoft.EntityFrameworkCore;
+using MovieSystem.Application.Repository.Interface;
 using MovieSystem.Domain.Entities;
 using MovieSystem.Infrastructure.Presistance.Data;
 
@@ -11,7 +12,12 @@ namespace MovieSystem.Infrastructure.Presistance.Repository
         {
         }
 
-        //
+        public async Task<Movie> GetMovieWithCategory(int id)
+        {
+            var movie = await _context.Movies.Include(c=>c.Category).FirstOrDefaultAsync(m=>m.Id == id);
+
+            return movie;
+        }
 
     }
 }

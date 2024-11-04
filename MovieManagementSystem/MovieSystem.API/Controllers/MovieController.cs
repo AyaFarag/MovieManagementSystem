@@ -21,15 +21,16 @@ namespace MovieSystem.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById()
+        public async Task<IActionResult> GetById(int id)
         {
-            return Ok();
+            var result = await _movieService.GetMovieById(id);
+            return Ok(result);
         }
 
         [HttpPost]
         public IActionResult CreateMovie(MovieDTO movie)
         {
-            // no automapper
+      
             var result = _movieService.CreateMovie(movie);
             return Ok(result);
         }

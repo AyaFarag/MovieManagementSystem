@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MovieSystem.Application.DTO
+namespace MovieSystem.Domain.Entities
 {
-    public class MovieUpdateDTO
+    public class Category
     {
         public int Id { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
+        public string Name { get; set; }
+        public ICollection<Movie> Movies { get; set; }
     }
 }

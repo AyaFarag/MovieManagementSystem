@@ -11,8 +11,8 @@ namespace MovieSystem.Application.Contracts.Interface
     public interface IMovieService
     {
         Task<IEnumerable<MovieDTO>> GetALlMovies();
-        Task<MovieDetailsDTO> GetMovieById();
-        Task<Movie> CreateMovie(MovieDTO movie);
+        Task<MovieDetailsDTO> GetMovieById(int id);
+        Task<MovieDetailsDTO> CreateMovie(MovieDTO movie);
         Task<Movie> UpdateMovie(int id , MovieUpdateDTO movie);
         Task DeleteMovie(int id);
     }

@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace MovieSystem.Application.Repository.Interface
 {
-    public interface IMovieRepository : IRepository<Movie>
+    public interface ICategoryRepository : IRepository<Category>
     {
-        Task<Movie> GetMovieWithCategory(int id);
+        Task<IEnumerable<Category>> GetAllCategoriesWithMoviesAsync();
+        Task<Category> GetCategoryByIdWithMoviesAsync(int id);
     }
 }

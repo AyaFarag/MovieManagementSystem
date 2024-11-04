@@ -11,7 +11,7 @@ namespace MovieSystem.Infrastructure.Presistance.Repository
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        private readonly DBContextApplication _context;
+        protected readonly DBContextApplication _context;
         private readonly DbSet<T> _dbSet;
 
         public Repository(DBContextApplication context)
@@ -20,7 +20,7 @@ namespace MovieSystem.Infrastructure.Presistance.Repository
             _dbSet = context.Set<T>();
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync()
+        public virtual async Task<IEnumerable<T>> GetAllAsync()
         {
             return await _dbSet.ToListAsync();
         }

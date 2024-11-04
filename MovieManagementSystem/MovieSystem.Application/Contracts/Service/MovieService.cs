@@ -1,4 +1,5 @@
-﻿using MovieSystem.Application.Contracts.Interface;
+﻿using AutoMapper;
+using MovieSystem.Application.Contracts.Interface;
 using MovieSystem.Application.DTO;
 using MovieSystem.Application.Repository.Interface;
 using MovieSystem.Domain.Entities;
@@ -9,23 +10,28 @@ namespace MovieSystem.Application.Contracts.Service
     {
         private readonly IMovieRepository _repository;
         private readonly IUnitOfWork _unit;
+        private readonly IMapper _mapper;
 
 
-        public MovieService(IMovieRepository repository, IUnitOfWork unit)
+        public MovieService(IMovieRepository repository, IUnitOfWork unit, IMapper mapper)
         {
             _repository = repository;
             _unit = unit;
+            _mapper = mapper;
         }
 
-        public Task<Movie> CreateMovie(MovieDTO movie)
+        public async Task<MovieDetailsDTO> CreateMovie(MovieDTO movieDTO)
         {
-            // business logic
-            // repository -> db
+            // business logic if , try , catch 
+            // to create
+            var movieCreate = _mapper.Map<Movie>(movieDTO);
+            var repo = await _repository.AddAsync(movieCreate);
             // automapper DTO -> Object
-            // var result = _repository.CreateMovie(automapper);
-            // automapper
+            var movieDetails = _mapper.Map<MovieDetailsDTO>(repo);
+
+            return movieDetails;
            
-            throw new NotImplementedException();
+          
         }
 
         public Task DeleteMovie(int id)
@@ -38,9 +44,11 @@ namespace MovieSystem.Application.Contracts.Service
             throw new NotImplementedException();
         }
 
-        public Task<MovieDetailsDTO> GetMovieById()
+        public async Task<MovieDetailsDTO> GetMovieById(int id)
         {
-            throw new NotImplementedException();
+           var movie = await _repository.GetMovieWithCategory(id);
+           var response = _mapper.Map<MovieDetailsDTO>(movie);
+            return response;
         }
 
         public Task<Movie> UpdateMovie(int id, MovieUpdateDTO movie)
