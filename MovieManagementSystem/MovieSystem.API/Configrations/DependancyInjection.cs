@@ -1,5 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using MovieSystem.Domain.Entities;
 using MovieSystem.Infrastructure.Presistance.Data;
+using MovieSystem.Infrastructure.Presistance.Models;
+using System;
 
 namespace MovieSystem.API.Configrations
 {
@@ -9,6 +13,10 @@ namespace MovieSystem.API.Configrations
         {
             services.AddDbContext<DBContextApplication>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+            
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<DBContextApplication>()
+                .AddDefaultTokenProviders();
 
             return services;
         }

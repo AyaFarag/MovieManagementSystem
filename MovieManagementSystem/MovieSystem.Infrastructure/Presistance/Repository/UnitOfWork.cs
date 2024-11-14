@@ -1,4 +1,5 @@
-﻿using MovieSystem.Application.Repository.Interface;
+﻿using AutoMapper;
+using MovieSystem.Application.Repository.Interface;
 using MovieSystem.Infrastructure.Presistance.Data;
 using System;
 using System.Collections.Generic;
@@ -13,13 +14,14 @@ namespace MovieSystem.Infrastructure.Presistance.Repository
         private readonly DBContextApplication _context;
         private IMovieRepository _movies;
         private IUserRepository _users;
+        private readonly IMapper _mapper;
         public UnitOfWork(DBContextApplication context)
         {
             _context = context;
         }
 
         public IMovieRepository Movies => _movies ??= new MovieRepository(_context);
-        public IUserRepository Users => _users ??= new UserRepository(_context);
+        public IUserRepository Users => _users ??= new UserRepository(_context, _mapper);
 
     }
 }

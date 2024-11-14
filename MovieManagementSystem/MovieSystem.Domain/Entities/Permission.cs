@@ -10,7 +10,7 @@ namespace MovieSystem.Domain.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public ICollection<Role> Roles { get; set; }
+        //public ICollection<Role> Roles { get; set; }
 
     }
 }

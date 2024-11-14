@@ -13,6 +13,7 @@ namespace MovieSystem.Domain.Entities
         public string Description { get; set; }
         public string VideoURL { get; set; }
         public string ImageURL { get; set; }
+        public bool isFree { get; set; }
         public int CategoryId { get; set; }
         public Category Category { get; set; }
         public ICollection<Review> Reviews { get; set; }

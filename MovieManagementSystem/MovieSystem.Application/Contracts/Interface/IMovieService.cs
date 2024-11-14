@@ -11,9 +11,10 @@ namespace MovieSystem.Application.Contracts.Interface
     public interface IMovieService
     {
         Task<IEnumerable<MovieDTO>> GetALlMovies();
-        Task<MovieDetailsDTO> GetMovieById(int id);
+        Task<Movie> GetMovieById(string id);
         Task<MovieDetailsDTO> CreateMovie(MovieDTO movie);
         Task<Movie> UpdateMovie(int id , MovieUpdateDTO movie);
         Task DeleteMovie(int id);
+        Task<bool> HasUserWatchedMovieAsync(string userId, string movieId);
     }
 }

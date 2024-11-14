@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Graph;
 using Microsoft.Graph.Models;
 using MovieSystem.Application.Repository.Interface;
+using MovieSystem.Infrastructure.Automapper;
 using MovieSystem.Infrastructure.Presistance.Repository;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace MovieSystem.Infrastructure.Presistance.Configrations
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IAssignRepository, AssignRepository>();
 
-
+            services.AddAutoMapper(typeof(MappingProfile));
             return services;
         }
 

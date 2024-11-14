@@ -1,6 +1,7 @@
 using MovieSystem.Infrastructure.Presistance.Configrations;
 using MovieSystem.Application.Configrations;
 using MovieSystem.API.Configrations;
+using MovieSystem.API.Middleware;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,17 +21,24 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+app.UseSwagger();
+app.UseSwaggerUI();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    
 }
 
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseMiddleware<MovieWatchMiddleware>();
+app.UseMiddleware<PaidUserMiddleware>();
+app.UseMiddleware<IpWhitelistMiddleware>();
 
 app.MapControllers();
 

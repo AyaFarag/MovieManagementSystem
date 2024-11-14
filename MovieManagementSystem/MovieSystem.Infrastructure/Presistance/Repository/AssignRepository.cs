@@ -20,14 +20,14 @@ namespace MovieSystem.Infrastructure.Presistance.Repository
 
         public async Task AssignUserToRole(int roleId, int userId)
         {
-            var user = await _context.Users.Include(u => u.Roles).FirstOrDefaultAsync(u => u.Id == userId);
-            var role = await _context.Roles.FindAsync(roleId);
+            //var user = await _context.Users.Include(u => u.Roles).FirstOrDefaultAsync(u => u.Id == userId);
+            //var role = await _context.Roles.FindAsync(roleId);
 
-            if (user != null && role != null && !user.Roles.Contains(role))
-            {
-                user.Roles.Add(role);
-                await _context.SaveChangesAsync();
-            }
+            //if (user != null && role != null && !user.Roles.Contains(role))
+            //{
+            //    user.Roles.Add(role);
+            //    await _context.SaveChangesAsync();
+            //}
         }
 
         public Task AssignRoleToPermission(int roleId, int permissionId)
@@ -54,14 +54,14 @@ namespace MovieSystem.Infrastructure.Presistance.Repository
 
         public async Task RevokeUserRole(int userId, int roleId)
         {
-            var user = await _context.Users.Include(u => u.Roles).FirstOrDefaultAsync(u => u.Id == userId);
-            var role = await _context.Roles.FindAsync(roleId);
+            //var user = await _context.Users.Include(u => u.Roles).FirstOrDefaultAsync(u => u.Id == userId);
+            //var role = await _context.Roles.FindAsync(roleId);
 
-            if (user != null && role != null && user.Roles.Contains(role))
-            {
-                user.Roles.Remove(role);
-                await _context.SaveChangesAsync();
-            }
+            //if (user != null && role != null && user.Roles.Contains(role))
+            //{
+            //    user.Roles.Remove(role);
+            //    await _context.SaveChangesAsync();
+            //}
         }
     }
 }

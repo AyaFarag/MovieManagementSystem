@@ -21,7 +21,7 @@ namespace MovieSystem.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetById(string id)
         {
             var result = await _movieService.GetMovieById(id);
             return Ok(result);
