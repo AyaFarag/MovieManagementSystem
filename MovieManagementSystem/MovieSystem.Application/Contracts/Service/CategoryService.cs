@@ -34,19 +34,29 @@ namespace MovieSystem.Application.Contracts.Service
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<CategoryDetailsDTO>> GetALlCategories()
+        public Task<IEnumerable<CategoryDetailsDTO>> GetALlCategories()
         {
-            var cats = await _categoryRepository.GetAllCategoriesWithMoviesAsync();
-            var response = _mapper.Map<IEnumerable<CategoryDetailsDTO>>(cats);
-            return response;
+            throw new NotImplementedException();
         }
 
-        public async Task<CategoryDetailsDTO> GetCategoryById(int id)
+        public Task<CategoryDetailsDTO> GetCategoryById(int id)
         {
-            var cat = await _categoryRepository.GetCategoryByIdWithMoviesAsync(id);
-            var response =  _mapper.Map<CategoryDetailsDTO>(cat);
-            return response;
+            throw new NotImplementedException();
         }
+
+        //public async Task<IEnumerable<CategoryDetailsDTO>> GetALlCategories()
+        //{
+        //    var cats = await _categoryRepository.GetAllCategoriesWithMoviesAsync();
+        //    var response = _mapper.Map<IEnumerable<CategoryDetailsDTO>>(cats);
+        //    return response;
+        //}
+
+        //public async Task<CategoryDetailsDTO> GetCategoryById(int id)
+        //{
+        //    var cat = await _categoryRepository.GetCategoryByIdWithMoviesAsync(id);
+        //    var response =  _mapper.Map<CategoryDetailsDTO>(cat);
+        //    return response;
+        //}
 
         public Task<Category> UpdateCategory(int id, CategoryUpdateDTO movie)
         {

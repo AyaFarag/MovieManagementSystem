@@ -23,6 +23,8 @@ namespace MovieSystem.Infrastructure.Presistance.Configrations
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IAssignRepository, AssignRepository>();
+            services.AddScoped<IAuthRepository, AuthRepository>();
+
 
             services.AddAutoMapper(typeof(MappingProfile));
             return services;

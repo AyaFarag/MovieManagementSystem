@@ -8,7 +8,7 @@
         public IpWhitelistMiddleware(RequestDelegate next, IConfiguration configuration)
         {
             _next = next;
-            // Load the whitelisted IPs from configuration
+          
             _whitelistedIps = configuration.GetSection("WhitelistedIPs").Get<List<string>>() ?? new List<string>();
         }
 

@@ -13,21 +13,22 @@ namespace MovieSystem.Infrastructure.Presistance.Repository
         {
         }
 
-        public async Task<Movie> GetMovieWithCategory(int id)
-        {
-            var movie = await _context.Movies.Include(c=>c.Category).FirstOrDefaultAsync(m=>m.Id == id);
+        //public async Task<Movie> GetMovieWithCategory(int id)
+        //{
+        //    var movie = await _context.Movies.Include(c=>c.Category).FirstOrDefaultAsync(m=>m.Id == id);
 
-            return movie;
+        //    return movie;
+        //}
+
+        public bool isUserWatched(string userId, string movieId)
+        {
+            //    // Implement logic to check if user has watched the movie
+            //    var watchRecord = await _context.UserMovies
+            //        .FirstOrDefaultAsync(w => w.userId == int.Parse(userId) && w.movieId == int.Parse(movieId));
+
+            //    return watchRecord != null;
+            return  true;
         }
 
-        public async Task<bool> isUserWatched(string userId, string movieId)
-        {
-            // Implement logic to check if user has watched the movie
-            var watchRecord = await _context.UserMovies
-                .FirstOrDefaultAsync(w => w.userId == int.Parse(userId) && w.movieId == int.Parse(movieId));
-
-            return watchRecord != null;
-        }
-
-    }
+}
 }

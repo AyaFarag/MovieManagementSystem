@@ -9,7 +9,7 @@ namespace MovieSystem.Application.Repository.Interface
 {
     public interface IMovieRepository : IRepository<Movie>
     {
-        Task<Movie> GetMovieWithCategory(int id);
-        Task<bool> isUserWatched(string userId, string movieId);
+        //Task<Movie> GetMovieWithCategory(int id);
+        bool isUserWatched(string userId, string movieId);
     }
 }

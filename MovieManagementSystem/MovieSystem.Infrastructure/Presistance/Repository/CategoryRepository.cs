@@ -18,14 +18,14 @@ namespace MovieSystem.Infrastructure.Presistance.Repository
                 
         }
 
-        public async Task<IEnumerable<Category>> GetAllCategoriesWithMoviesAsync()
-        {
-            return await _context.Categories.Include(m=>m.Movies).ToListAsync();
-        }
-        public async Task<Category> GetCategoryByIdWithMoviesAsync(int id)
-        {
-            return await _context.Categories.Include(m => m.Movies).Where(c => c.Id == id).FirstOrDefaultAsync();
-        }
+        //public async Task<IEnumerable<Category>> GetAllCategoriesWithMoviesAsync()
+        //{
+        //    return await _context.Categories.Include(m=>m.Movies).ToListAsync();
+        //}
+        //public async Task<Category> GetCategoryByIdWithMoviesAsync(int id)
+        //{
+        //    return await _context.Categories.Include(m => m.Movies).Where(c => c.Id == id).FirstOrDefaultAsync();
+        //}
 
     }
 }

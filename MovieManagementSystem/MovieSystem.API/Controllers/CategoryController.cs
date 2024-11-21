@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MovieSystem.Application.Contracts.Interface;
 using MovieSystem.Application.Contracts.Service;
@@ -6,6 +7,8 @@ using MovieSystem.Application.DTO;
 
 namespace MovieSystem.API.Controllers
 {
+    // [EnableCors("CustomPolicy")]
+    [DisableCors]
     [Route("api/[controller]")]
     [ApiController]
     public class CategoryController : ControllerBase

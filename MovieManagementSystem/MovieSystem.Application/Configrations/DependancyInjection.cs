@@ -38,11 +38,13 @@ namespace MovieSystem.Application.Configrations
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:SecretKey"]))
                 };
             });
+            //services.AddScoped<IAuthService, AuthService>();
 
             services.AddScoped<IMovieService, MovieService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IAssignService, AssignService>();
-            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IAccountService, AccountService>();
+
 
 
 

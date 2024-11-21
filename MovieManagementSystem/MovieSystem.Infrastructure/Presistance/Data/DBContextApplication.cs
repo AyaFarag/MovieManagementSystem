@@ -6,7 +6,7 @@ using MovieSystem.Infrastructure.Presistance.Models;
 
 namespace MovieSystem.Infrastructure.Presistance.Data
 {
-    public class DBContextApplication : IdentityDbContext<IdentityUser , IdentityRole, string>
+    public class DBContextApplication : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
         public DBContextApplication(DbContextOptions<DBContextApplication> options)
         : base(options)
@@ -17,12 +17,12 @@ namespace MovieSystem.Infrastructure.Presistance.Data
         {
             base.OnModelCreating(builder);
             // Rename Identity tables
-            builder.Entity<IdentityUser>().ToTable("Users"); // class
-            builder.Entity<IdentityRole>().ToTable("Roles"); // class
+            builder.Entity<ApplicationUser>().ToTable("Users"); // class
+            builder.Entity<ApplicationRole>().ToTable("Roles"); // class
             builder.Entity<Permission>().ToTable("Permissions"); // class and table
-            builder.Entity<IdentityUserRole<string>>().ToTable("UserRole"); // class
-            builder.Entity<IdentityUserClaim<string>>().ToTable("UserPermission"); // class
-            builder.Entity<IdentityRoleClaim<string>>().ToTable("RolePermission"); // class
+            builder.Entity<UserRole>().ToTable("UserRole"); // class
+            builder.Entity<UserPermission>().ToTable("UserPermission"); // class
+            builder.Entity<RolePermission>().ToTable("RolePermission"); // class
             builder.Entity<IdentityUserLogin<string>>().ToTable("UserLogin");
             builder.Entity<IdentityUserToken<string>>().ToTable("UserToken");
 
@@ -77,7 +77,7 @@ namespace MovieSystem.Infrastructure.Presistance.Data
                 new RolePermission { Id = 2, RoleId = adminRoleId, ClaimType = "Permission", ClaimValue = "EditRecords" },
                 new RolePermission { Id = 3, RoleId = adminRoleId, ClaimType = "Permission", ClaimValue = "DeleteRecords" }
             );
-            builder.Entity<UserMovies>().HasKey(um => new { um.movieId, um.userId });
+          //  builder.Entity<UserMovies>().HasKey(um => new { um.movieId, um.userId });
 
             //builder.Entity<User>()
             //  .HasMany(u => u.Roles)

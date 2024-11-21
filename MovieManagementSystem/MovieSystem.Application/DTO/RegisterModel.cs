@@ -18,5 +18,7 @@ namespace MovieSystem.Application.DTO
 
         [Required, StringLength(256)]
         public string Password { get; set; }
+        public string Role { get; set; }
+
     }
 }

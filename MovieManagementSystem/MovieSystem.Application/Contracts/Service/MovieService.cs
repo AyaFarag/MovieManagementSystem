@@ -44,12 +44,12 @@ namespace MovieSystem.Application.Contracts.Service
             throw new NotImplementedException();
         }
 
-        public async Task<Movie> GetMovieById(string id)
-        {
-           var movie = await _repository.GetMovieWithCategory(int.Parse(id));
-           var response = _mapper.Map<MovieDetailsDTO>(movie);
-            return movie;
-        }
+        //public async Task<Movie> GetMovieById(string id)
+        //{
+        //   var movie = await _repository.GetMovieWithCategory(int.Parse(id));
+        //   var response = _mapper.Map<MovieDetailsDTO>(movie);
+        //    return movie;
+        //}
 
         public Task<Movie> UpdateMovie(int id, MovieUpdateDTO movie)
         {
@@ -58,8 +58,13 @@ namespace MovieSystem.Application.Contracts.Service
 
         public async Task<bool> HasUserWatchedMovieAsync(string userId, string movieId)
         {
-            var isUserWatched = await _repository.isUserWatched(userId , movieId);
+            var isUserWatched =  _repository.isUserWatched(userId , movieId);
               return isUserWatched ;
+        }
+
+        public Task<Movie> GetMovieById(string id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -14,6 +14,11 @@ namespace MovieSystem.API.Configrations
             services.AddDbContext<DBContextApplication>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
             
+            services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = "localhost:6379";  // Replace with your Redis server configuration
+            });
+
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<DBContextApplication>()
                 .AddDefaultTokenProviders();

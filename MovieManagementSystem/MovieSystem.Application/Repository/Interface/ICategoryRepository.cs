@@ -9,7 +9,7 @@ namespace MovieSystem.Application.Repository.Interface
 {
     public interface ICategoryRepository : IRepository<Category>
     {
-        Task<IEnumerable<Category>> GetAllCategoriesWithMoviesAsync();
-        Task<Category> GetCategoryByIdWithMoviesAsync(int id);
+        //Task<IEnumerable<Category>> GetAllCategoriesWithMoviesAsync();
+        //Task<Category> GetCategoryByIdWithMoviesAsync(int id);
     }
 }
