@@ -9,11 +9,11 @@ namespace MovieSystem.API.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly IAuthService _authService;
+        private readonly IAccountService _accountService;
 
-        public AuthController(IAuthService authService)
+        public AuthController(IAccountService accountService)
         {
-            _authService = authService;
+            _accountService = accountService;
         }
 
         [HttpPost("register")]
@@ -22,7 +22,7 @@ namespace MovieSystem.API.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = await _authService.RegisterAsync(model);
+            var result = await _accountService.RegisterAsync(model);
 
             if (!result.IsAuthenticated)
                 return BadRequest(result.Message);
@@ -36,7 +36,7 @@ namespace MovieSystem.API.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = await _authService.GetTokenAsync(model);
+            var result = await _accountService.LoginAsync(model);
 
             if (!result.IsAuthenticated)
                 return BadRequest(result.Message);

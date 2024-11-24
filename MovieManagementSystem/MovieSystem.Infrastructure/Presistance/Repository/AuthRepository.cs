@@ -11,11 +11,12 @@ namespace MovieSystem.Infrastructure.Presistance.Repository
     public class AuthRepository : IAuthRepository
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly RoleManager<Role> _roleManager;
+        private readonly RoleManager<ApplicationRole> _roleManager;
         private readonly IMapper _mapper;
-        public AuthRepository(UserManager<ApplicationUser> userManager, IMapper mapper)
+        public AuthRepository(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager ,IMapper mapper)
         {
             _userManager = userManager;
+            _roleManager = roleManager;
             _mapper = mapper;
         }
 
@@ -67,6 +68,7 @@ namespace MovieSystem.Infrastructure.Presistance.Repository
         {
             var applicationuser = _mapper.Map<ApplicationUser>(user);
             var roles = await _userManager.GetRolesAsync(applicationuser);
+           
             return roles;
         }
 

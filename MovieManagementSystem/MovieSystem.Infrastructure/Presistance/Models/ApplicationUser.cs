@@ -10,6 +10,8 @@ namespace MovieSystem.Infrastructure.Presistance.Models
         public bool isAdmin { get; set; }
         public bool isPaid { get; set; }
         public ICollection<Review> Reviews { get; set; }
+        public ICollection<UserMoviesModel> MovieUsers { get; set; }
+
 
 
     }

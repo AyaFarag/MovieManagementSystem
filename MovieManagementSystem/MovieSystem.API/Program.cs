@@ -8,11 +8,23 @@ using Microsoft.Graph.Models.ExternalConnectors;
 using AspNetCoreRateLimit;
 using Serilog;
 using Asp.Versioning;
+using Microsoft.Extensions.Configuration;
+using MovieSystem.Application.Extentions;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Azure DevOps
+// Git version control
+// Security Layers: validation - error handling - middlewate - logging - token - policy - API sesurity - API headers - API Versioning 
+// Architectures - Design Patterns
+// background service - background job
+// Performance layers - Caching
+// Filters Vs Middleware
+// Unit Testing
+
 // Add services to the container.
+builder.Services.Configure<JWT>(builder.Configuration.GetSection("JWT"));
 
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddApplicationServices(builder.Configuration);
@@ -45,22 +57,22 @@ builder.Services.AddCors(options =>
                .AllowCredentials(); // Allow cookies or credentials
     });
 });
-builder.Services.AddApiVersioning(options =>
-{
-    options.ReportApiVersions = true; // Include version info in responses
-    options.AssumeDefaultVersionWhenUnspecified = true; // Default version
-    options.DefaultApiVersion = ApiVersion.Default; // Set default version
-    options.ApiVersionReader = ApiVersionReader.Combine(
-        new HeaderApiVersionReader("X-API-Version"),
-        new QueryStringApiVersionReader("version"));
-});
+//builder.Services.AddApiVersioning(options =>
+//{
+//    options.ReportApiVersions = true; // Include version info in responses
+//    options.AssumeDefaultVersionWhenUnspecified = true; // Default version
+//    options.DefaultApiVersion = ApiVersion.Default; // Set default version
+//    options.ApiVersionReader = ApiVersionReader.Combine(
+//        new HeaderApiVersionReader("X-API-Version"),
+//        new QueryStringApiVersionReader("version"));
+//});
 
 //builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddMemoryCache();
 
-builder.Services.Configure<IpRateLimitOptions>(builder.Configuration.GetSection("IpRateLimiting"));
-builder.Services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
-builder.Services.AddInMemoryRateLimiting();
+//builder.Services.Configure<IpRateLimitOptions>(builder.Configuration.GetSection("IpRateLimiting"));
+//builder.Services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
+//builder.Services.AddInMemoryRateLimiting();
 //builder.Services.AddClientRateLimiting();
 
 builder.Services.AddControllers();
@@ -79,29 +91,29 @@ if (app.Environment.IsDevelopment())
     
 }
 // Add security headers middleware
-app.Use(async (context, next) =>
-{
-    context.Response.Headers.Add("X-Content-Type-Options", "nosniff");
-    context.Response.Headers.Add("X-Frame-Options", "DENY");
-    context.Response.Headers.Add("Strict-Transport-Security", "max-age=31536000; includeSubDomains");
-    context.Response.Headers.Add("X-XSS-Protection", "1; mode=block");
-    context.Response.Headers.Add("Referrer-Policy", "no-referrer");
+//app.Use(async (context, next) =>
+//{
+//    context.Response.Headers.Add("X-Content-Type-Options", "nosniff");
+//    context.Response.Headers.Add("X-Frame-Options", "DENY");
+//    context.Response.Headers.Add("Strict-Transport-Security", "max-age=31536000; includeSubDomains");
+//    context.Response.Headers.Add("X-XSS-Protection", "1; mode=block");
+//    context.Response.Headers.Add("Referrer-Policy", "no-referrer");
 
-    await next.Invoke();
-});
+//    await next.Invoke();
+//});
 app.UseHttpsRedirection();
 
-app.UseMiddleware<MovieWatchMiddleware>();
-app.UseMiddleware<PaidUserMiddleware>();
-app.UseMiddleware<IpWhitelistMiddleware>();
-app.UseMiddleware<ApiKeyMiddleware>();
-app.UseMiddleware<FixedWindowRateLimitingMiddleware>();
-app.UseMiddleware<UserPaymentBasedRateLimitingMiddleware>();
-app.UseMiddleware<IpBasedRateLimitingMiddleware>();
-app.UseMiddleware<LoginAttemptThrottlingMiddleware>();
-app.UseMiddleware<CustomRateLimitMiddleware>();
+//app.UseMiddleware<MovieWatchMiddleware>();
+//app.UseMiddleware<PaidUserMiddleware>();
+//app.UseMiddleware<IpWhitelistMiddleware>();
+//app.UseMiddleware<ApiKeyMiddleware>();
+//app.UseMiddleware<FixedWindowRateLimitingMiddleware>();
+//app.UseMiddleware<UserPaymentBasedRateLimitingMiddleware>();
+//app.UseMiddleware<IpBasedRateLimitingMiddleware>();
+//app.UseMiddleware<LoginAttemptThrottlingMiddleware>();
+//app.UseMiddleware<CustomRateLimitMiddleware>();
 
-app.UseIpRateLimiting();
+//app.UseIpRateLimiting();
 
 app.UseCors("AllowAll");
 app.UseCors("SpecificOrigins");

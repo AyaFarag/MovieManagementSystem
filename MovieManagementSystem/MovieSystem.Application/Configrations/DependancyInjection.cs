@@ -18,7 +18,7 @@ namespace MovieSystem.Application.Configrations
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.Configure<JWT>(configuration.GetSection("JwtSettings"));
+            
             
             services.AddAuthentication(o =>
             {

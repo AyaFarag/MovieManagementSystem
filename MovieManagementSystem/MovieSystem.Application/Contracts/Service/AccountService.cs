@@ -1,19 +1,17 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using MovieSystem.Application.Contracts.Interface;
 using MovieSystem.Application.DTO;
 using MovieSystem.Application.Extentions;
 using MovieSystem.Application.Repository.Interface;
 using MovieSystem.Domain.Entities;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace MovieSystem.Application.Contracts.Service
 {
@@ -23,16 +21,18 @@ namespace MovieSystem.Application.Contracts.Service
         private readonly IAuthRepository _authRepository;
         private readonly IMapper _mapper;
         private readonly JWT _jwt;
-        private readonly ILoginAttemptService _loginAttemptService;
+        //private readonly IConfiguration _configuration;
+        //private readonly ILoginAttemptService _loginAttemptService;
         public AccountService(IAuthRepository authRepository
-            , IMapper mapper, JWT jwt
-            , LoginAttemptService loginAttemptService
+            , IMapper mapper
+            , IOptions<JWT> jwt
+           // , LoginAttemptService loginAttemptService
             , ILogger<AccountService> logger)
         {
              _authRepository = authRepository;
             _mapper = mapper;
-            _jwt = jwt;
-            _loginAttemptService = loginAttemptService;
+            _jwt = jwt.Value;
+          //  _loginAttemptService = loginAttemptService;
             _logger = logger;
         }
         private async Task<AuthModel> CheckExistUser(RegisterModel model)
@@ -43,7 +43,7 @@ namespace MovieSystem.Application.Contracts.Service
                 return new AuthModel { Message = "Email is already registered!" };
             }
              
-            if (await _authRepository.FindUserByNameAsync(model.UserName) is not null) // FindUserByUserName
+            if (await _authRepository.FindUserByNameAsync(model.userName) is not null) // FindUserByUserName
             {
                 _logger.LogInformation("Username is already registered!");
                 return new AuthModel { Message = "Username is already registered!" };
@@ -58,7 +58,7 @@ namespace MovieSystem.Application.Contracts.Service
 
             var user =  _mapper.Map<User>(model); // including password
             var result = await _authRepository.CreateUserAsync(user); // create user
-            await _authRepository.addUserToRoleAsync(user, model.Role); // addUserToRoleAsync
+         //   await _authRepository.addUserToRoleAsync(user, model.Roles); // addUserToRoleAsync
 
             var jwtSecurityToken = await CreateJwtToken(user);
 
@@ -69,7 +69,7 @@ namespace MovieSystem.Application.Contracts.Service
                 IsAuthenticated = true,
                 Roles = new List<string> { "User" },
                 Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
-                Username = model.UserName
+                Username = model.userName
             };
 
         }
@@ -78,13 +78,13 @@ namespace MovieSystem.Application.Contracts.Service
             var authModel = new AuthModel();
             var result = await _authRepository.CheckLoginCredentialsAsync(model.Email, model.Password);
 
-            if (result == false || await _loginAttemptService.IsThrottledAsync(model.Email))
-            {
-                // warning
-                _logger.LogWarning("Failed to login user {Email}", model.Email);
-                _logger.LogInformation("Too many login attempts. Please try again later.");
-                return new AuthModel { Message = "Too many login attempts. Please try again later." };
-            }
+            //if (result == false || await _loginAttemptService.IsThrottledAsync(model.Email))
+            //{
+            //    // warning
+            //    _logger.LogWarning("Failed to login user {Email}", model.Email);
+            //    _logger.LogInformation("Too many login attempts. Please try again later.");
+            //    return new AuthModel { Message = "Too many login attempts. Please try again later." };
+            //}
             if (result == false)
             {
                 _logger.LogWarning("Email or Password is incorrect!");
@@ -99,7 +99,7 @@ namespace MovieSystem.Application.Contracts.Service
             authModel.IsAuthenticated = true;
             authModel.Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
             authModel.Email = user.Email;
-            authModel.Username = user.UserName;
+            authModel.Username = user.userName;
             authModel.ExpiresOn = jwtSecurityToken.ValidTo;
             authModel.Roles = rolesList.ToList();
 
@@ -119,7 +119,7 @@ namespace MovieSystem.Application.Contracts.Service
 
             var claims = new[]
             {
-                new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
+                new Claim(JwtRegisteredClaimNames.Sub, user.userName),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
                 new Claim("uid", user.Id)
@@ -128,7 +128,7 @@ namespace MovieSystem.Application.Contracts.Service
             .Union(roleClaims);
 
 
-            var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwt.Key));
+            var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwt.SecretKey));
             var signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
 
             var jwtSecurityToken = new JwtSecurityToken(

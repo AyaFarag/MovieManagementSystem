@@ -8,6 +8,11 @@ namespace MovieSystem.Application.Automapper
     {
         public UserProfile()
         {
+            
+
+            CreateMap<RegisterModel, User>()
+             .ForMember(dest => dest.Roles, opt => opt.MapFrom(src => src.Roles));
+            
             CreateMap<RegisterModel, User>()
                 .ForMember(p => p.PasswordHash, opt => opt.MapFrom(src => src.Password));
             

@@ -30,6 +30,7 @@
 	<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.10" />
 	<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.10" />
 	<PackageReference Include="Microsoft.AspNetCore.JsonPatch" Version="8.0.10" />
+	<PackageReference Include="Steeltoe.Common" Version="3.2.8" />
 
   </ItemGroup>
 

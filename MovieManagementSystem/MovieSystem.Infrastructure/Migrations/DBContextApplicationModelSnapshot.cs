@@ -36,6 +36,11 @@ namespace MovieSystem.Infrastructure.Migrations
                     b.Property<string>("ClaimValue")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(34)
+                        .HasColumnType("nvarchar(34)");
+
                     b.Property<string>("RoleId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -44,9 +49,11 @@ namespace MovieSystem.Infrastructure.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetRoleClaims", (string)null);
+                    b.ToTable("RolePermission", (string)null);
 
-                    b.UseTptMappingStrategy();
+                    b.HasDiscriminator().HasValue("IdentityRoleClaim<string>");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -63,6 +70,11 @@ namespace MovieSystem.Infrastructure.Migrations
                     b.Property<string>("ClaimValue")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(34)
+                        .HasColumnType("nvarchar(34)");
+
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -71,9 +83,11 @@ namespace MovieSystem.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserClaims", (string)null);
+                    b.ToTable("UserPermission", (string)null);
 
-                    b.UseTptMappingStrategy();
+                    b.HasDiscriminator().HasValue("IdentityUserClaim<string>");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -106,13 +120,20 @@ namespace MovieSystem.Infrastructure.Migrations
                     b.Property<string>("RoleId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(34)
+                        .HasColumnType("nvarchar(34)");
+
                     b.HasKey("UserId", "RoleId");
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetUserRoles", (string)null);
+                    b.ToTable("UserRole", (string)null);
 
-                    b.UseTptMappingStrategy();
+                    b.HasDiscriminator().HasValue("IdentityUserRole<string>");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -148,7 +169,7 @@ namespace MovieSystem.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Category");
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("MovieSystem.Domain.Entities.Movie", b =>
@@ -185,7 +206,7 @@ namespace MovieSystem.Infrastructure.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Movie");
+                    b.ToTable("Movies");
                 });
 
             modelBuilder.Entity("MovieSystem.Domain.Entities.Permission", b =>
@@ -200,12 +221,7 @@ namespace MovieSystem.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("RoleId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("RoleId");
 
                     b.ToTable("Permissions", (string)null);
 
@@ -245,13 +261,6 @@ namespace MovieSystem.Infrastructure.Migrations
                     b.Property<int>("MovieId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId1")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<DateTime>("date")
                         .HasColumnType("datetime2");
 
@@ -267,58 +276,7 @@ namespace MovieSystem.Infrastructure.Migrations
 
                     b.HasIndex("MovieId");
 
-                    b.HasIndex("UserId1");
-
-                    b.ToTable("Review");
-                });
-
-            modelBuilder.Entity("MovieSystem.Domain.Entities.Role", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Role");
-                });
-
-            modelBuilder.Entity("MovieSystem.Domain.Entities.User", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PasswordHash")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("isAdmin")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("isPaid")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("User");
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("MovieSystem.Infrastructure.Presistance.Models.ApplicationRole", b =>
@@ -350,13 +308,13 @@ namespace MovieSystem.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b5474402-5e31-45e6-b42f-0e4729d1cc3e",
+                            Id = "07f50c4d-46ca-48bd-8dbb-b1233ca56f7e",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "41f3abdd-b057-4507-889a-726254d5d715",
+                            Id = "59df3f71-be8e-4662-a30f-cf130a3bc67b",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -365,6 +323,7 @@ namespace MovieSystem.Infrastructure.Migrations
             modelBuilder.Entity("MovieSystem.Infrastructure.Presistance.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("AccessFailedCount")
@@ -439,18 +398,18 @@ namespace MovieSystem.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "591dfbe9-df16-4065-84f0-e54bf5d353fd",
+                            Id = "081badbe-0331-4e08-8e5c-e24707ed0de2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "20f6e3d8-dff8-4f56-9449-b8b0eb2ba4c4",
+                            ConcurrencyStamp = "944dc566-6233-4092-ace1-3c46ae8cef15",
                             Email = "admin@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             Name = "admin",
                             NormalizedEmail = "ADMIN@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEHGK5wXMhM5a6pmBGREytjheXCCXgbIeqEV6yM8ZQj/iaJIna5NgmVtrr96frHA1BA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDFaPDOrlOWq3B51QSN+vPk4rUoGHIjJp7AjAC4odPYpTideBC5BEk53eEcZq1Ky1w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b606ee22-a910-4bb5-97d4-766f51653ce0",
+                            SecurityStamp = "4fdaaa5f-4f8f-4c9f-b965-75cc0a8daaa7",
                             TwoFactorEnabled = false,
                             UserName = "admin",
                             isAdmin = false,
@@ -458,26 +417,26 @@ namespace MovieSystem.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("RoleUser", b =>
+            modelBuilder.Entity("MovieSystem.Infrastructure.Presistance.Models.UserMoviesModel", b =>
                 {
-                    b.Property<int>("RolesId")
+                    b.Property<int>("MovieId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UsersId")
+                    b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("RolesId", "UsersId");
+                    b.HasKey("MovieId", "UserId");
 
-                    b.HasIndex("UsersId");
+                    b.HasIndex("UserId");
 
-                    b.ToTable("RoleUser");
+                    b.ToTable("UserMovies");
                 });
 
             modelBuilder.Entity("MovieSystem.Infrastructure.Presistance.Models.RolePermission", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>");
 
-                    b.ToTable("RolePermission", (string)null);
+                    b.HasDiscriminator().HasValue("RolePermission");
 
                     b.HasData(
                         new
@@ -485,21 +444,21 @@ namespace MovieSystem.Infrastructure.Migrations
                             Id = 1,
                             ClaimType = "Permission",
                             ClaimValue = "ViewRecords",
-                            RoleId = "b5474402-5e31-45e6-b42f-0e4729d1cc3e"
+                            RoleId = "07f50c4d-46ca-48bd-8dbb-b1233ca56f7e"
                         },
                         new
                         {
                             Id = 2,
                             ClaimType = "Permission",
                             ClaimValue = "EditRecords",
-                            RoleId = "b5474402-5e31-45e6-b42f-0e4729d1cc3e"
+                            RoleId = "07f50c4d-46ca-48bd-8dbb-b1233ca56f7e"
                         },
                         new
                         {
                             Id = 3,
                             ClaimType = "Permission",
                             ClaimValue = "DeleteRecords",
-                            RoleId = "b5474402-5e31-45e6-b42f-0e4729d1cc3e"
+                            RoleId = "07f50c4d-46ca-48bd-8dbb-b1233ca56f7e"
                         });
                 });
 
@@ -507,7 +466,7 @@ namespace MovieSystem.Infrastructure.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>");
 
-                    b.ToTable("UserPermission", (string)null);
+                    b.HasDiscriminator().HasValue("UserPermission");
 
                     b.HasData(
                         new
@@ -515,14 +474,14 @@ namespace MovieSystem.Infrastructure.Migrations
                             Id = 1,
                             ClaimType = "Permission",
                             ClaimValue = "ViewRecords",
-                            UserId = "591dfbe9-df16-4065-84f0-e54bf5d353fd"
+                            UserId = "081badbe-0331-4e08-8e5c-e24707ed0de2"
                         },
                         new
                         {
                             Id = 2,
                             ClaimType = "Permission",
                             ClaimValue = "EditRecords",
-                            UserId = "591dfbe9-df16-4065-84f0-e54bf5d353fd"
+                            UserId = "081badbe-0331-4e08-8e5c-e24707ed0de2"
                         });
                 });
 
@@ -530,13 +489,13 @@ namespace MovieSystem.Infrastructure.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUserRole<string>");
 
-                    b.ToTable("UserRole", (string)null);
+                    b.HasDiscriminator().HasValue("UserRole");
 
                     b.HasData(
                         new
                         {
-                            UserId = "591dfbe9-df16-4065-84f0-e54bf5d353fd",
-                            RoleId = "b5474402-5e31-45e6-b42f-0e4729d1cc3e"
+                            UserId = "081badbe-0331-4e08-8e5c-e24707ed0de2",
+                            RoleId = "07f50c4d-46ca-48bd-8dbb-b1233ca56f7e"
                         });
                 });
 
@@ -602,13 +561,6 @@ namespace MovieSystem.Infrastructure.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("MovieSystem.Domain.Entities.Permission", b =>
-                {
-                    b.HasOne("MovieSystem.Domain.Entities.Role", null)
-                        .WithMany("Permissions")
-                        .HasForeignKey("RoleId");
-                });
-
             modelBuilder.Entity("MovieSystem.Domain.Entities.Review", b =>
                 {
                     b.HasOne("MovieSystem.Infrastructure.Presistance.Models.ApplicationUser", null)
@@ -621,57 +573,26 @@ namespace MovieSystem.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MovieSystem.Domain.Entities.User", "User")
-                        .WithMany("Reviews")
-                        .HasForeignKey("UserId1")
+                    b.Navigation("Movie");
+                });
+
+            modelBuilder.Entity("MovieSystem.Infrastructure.Presistance.Models.UserMoviesModel", b =>
+                {
+                    b.HasOne("MovieSystem.Domain.Entities.Movie", "Movie")
+                        .WithMany()
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MovieSystem.Infrastructure.Presistance.Models.ApplicationUser", "User")
+                        .WithMany("MovieUsers")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Movie");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("RoleUser", b =>
-                {
-                    b.HasOne("MovieSystem.Domain.Entities.Role", null)
-                        .WithMany()
-                        .HasForeignKey("RolesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MovieSystem.Domain.Entities.User", null)
-                        .WithMany()
-                        .HasForeignKey("UsersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("MovieSystem.Infrastructure.Presistance.Models.RolePermission", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", null)
-                        .WithOne()
-                        .HasForeignKey("MovieSystem.Infrastructure.Presistance.Models.RolePermission", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("MovieSystem.Infrastructure.Presistance.Models.UserPermission", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", null)
-                        .WithOne()
-                        .HasForeignKey("MovieSystem.Infrastructure.Presistance.Models.UserPermission", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("MovieSystem.Infrastructure.Presistance.Models.UserRole", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", null)
-                        .WithOne()
-                        .HasForeignKey("MovieSystem.Infrastructure.Presistance.Models.UserRole", "UserId", "RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("MovieSystem.Domain.Entities.Category", b =>
@@ -684,18 +605,10 @@ namespace MovieSystem.Infrastructure.Migrations
                     b.Navigation("Reviews");
                 });
 
-            modelBuilder.Entity("MovieSystem.Domain.Entities.Role", b =>
-                {
-                    b.Navigation("Permissions");
-                });
-
-            modelBuilder.Entity("MovieSystem.Domain.Entities.User", b =>
-                {
-                    b.Navigation("Reviews");
-                });
-
             modelBuilder.Entity("MovieSystem.Infrastructure.Presistance.Models.ApplicationUser", b =>
                 {
+                    b.Navigation("MovieUsers");
+
                     b.Navigation("Reviews");
                 });
 #pragma warning restore 612, 618

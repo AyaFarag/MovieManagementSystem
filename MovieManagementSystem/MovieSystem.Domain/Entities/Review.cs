@@ -12,8 +12,7 @@ namespace MovieSystem.Domain.Entities
         public string Content { get; set; }
         public short rate { get; set; }
         public DateTime date { get; set; }
-        public int UserId { get; set; }
-        public User User { get; set; }
+        // no reverse property for user
         public int MovieId { get; set; }
         public Movie Movie { get; set; }
         public bool isHide { get; set; }

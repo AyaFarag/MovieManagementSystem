@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using MovieSystem.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace MovieSystem.Infrastructure.Presistance.Models
 {
-    public class ApplicationRole : IdentityRole
+    public class CustomMovie : Movie
     {
-        //public ICollection<UserRole> UserRoles { get; set; }
+        public ICollection<ApplicationUser> Users { get; set; }
+
     }
 }

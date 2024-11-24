@@ -19,7 +19,7 @@ namespace MovieSystem.API.Configrations
                 options.Configuration = "localhost:6379";  // Replace with your Redis server configuration
             });
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, ApplicationRole>()
                 .AddEntityFrameworkStores<DBContextApplication>()
                 .AddDefaultTokenProviders();
 

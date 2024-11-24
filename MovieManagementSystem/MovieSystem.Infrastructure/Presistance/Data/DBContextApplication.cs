@@ -20,12 +20,13 @@ namespace MovieSystem.Infrastructure.Presistance.Data
             builder.Entity<ApplicationUser>().ToTable("Users"); // class
             builder.Entity<ApplicationRole>().ToTable("Roles"); // class
             builder.Entity<Permission>().ToTable("Permissions"); // class and table
-            builder.Entity<UserRole>().ToTable("UserRole"); // class
-            builder.Entity<UserPermission>().ToTable("UserPermission"); // class
-            builder.Entity<RolePermission>().ToTable("RolePermission"); // class
+            builder.Entity<IdentityUserRole<string>>().ToTable("UserRole"); // class IdentityUserRole<string>
+            builder.Entity<IdentityUserClaim<string>>().ToTable("UserPermission"); // class IdentityUserClaim<string>
+            builder.Entity<IdentityRoleClaim<string>>().ToTable("RolePermission"); // class IdentityRoleClaim<string>
             builder.Entity<IdentityUserLogin<string>>().ToTable("UserLogin");
             builder.Entity<IdentityUserToken<string>>().ToTable("UserToken");
-
+            // UserRole
+            // UserRole - UserPermission - RolePermission
             // Define seed data
             var adminRoleId = Guid.NewGuid().ToString();
             var userRoleId = Guid.NewGuid().ToString();
@@ -77,7 +78,15 @@ namespace MovieSystem.Infrastructure.Presistance.Data
                 new RolePermission { Id = 2, RoleId = adminRoleId, ClaimType = "Permission", ClaimValue = "EditRecords" },
                 new RolePermission { Id = 3, RoleId = adminRoleId, ClaimType = "Permission", ClaimValue = "DeleteRecords" }
             );
-          //  builder.Entity<UserMovies>().HasKey(um => new { um.movieId, um.userId });
+
+            builder.Entity<UserMoviesModel>().HasKey(um => new { um.MovieId, um.UserId });
+          
+            builder.Entity<IdentityUserRole<string>>().HasKey(ur => new { ur.UserId, ur.RoleId });
+            builder.Entity<ApplicationUser>(entity =>
+            {
+                entity.HasKey(u => u.Id);
+                entity.Property(u => u.Id).ValueGeneratedOnAdd();
+            });
 
             //builder.Entity<User>()
             //  .HasMany(u => u.Roles)
@@ -89,10 +98,9 @@ namespace MovieSystem.Infrastructure.Presistance.Data
         }
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Category> Categories { get; set; }
-      
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<Review> Reviews { get; set; }
-        public DbSet<UserMovies> UserMovies { get; set; }
+        public DbSet<UserMoviesModel> UserMovies { get; set; }
 
 
 
