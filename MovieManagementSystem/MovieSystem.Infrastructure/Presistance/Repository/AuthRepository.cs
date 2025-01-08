@@ -20,15 +20,20 @@ namespace MovieSystem.Infrastructure.Presistance.Repository
             _mapper = mapper;
         }
 
-        public async Task<bool> addUserToRoleAsync(User user, string role)
+        public async Task<bool> CreateUserAsync(User user, List<string> role)
         {
-            var result = false;
-            
+            var applicationuser = _mapper.Map<ApplicationUser>(user);
+            var result = await _userManager.CreateAsync(applicationuser, user.PasswordHash);
+            var isRole = await _userManager.AddToRoleAsync(applicationuser, string.Join(" ", role));
+            return isRole.Succeeded;
+        }
+
+        public async Task<bool> addUserToRoleAsync(User user, List<string> role)
+        {
             var applicationuser =  _mapper.Map<ApplicationUser>(user);
-            var addrole = await _userManager.AddToRoleAsync(applicationuser, role);
-            if(addrole != null) result = true;
+            var result = await _userManager.AddToRoleAsync(applicationuser, string.Join(" ", role));
             
-            return result;
+            return result.Succeeded;
         }
 
         public async Task<bool> CheckUserPasswordAsync(User user, string password)
@@ -37,12 +42,7 @@ namespace MovieSystem.Infrastructure.Presistance.Repository
             return await _userManager.CheckPasswordAsync(applicationuser, password);
         }
 
-        public async Task<bool> CreateUserAsync(User user)
-        {
-            var applicationuser =  _mapper.Map<ApplicationUser>(user);
-            var result = await _userManager.CreateAsync(applicationuser, user.PasswordHash);
-            return result.Succeeded;
-        }
+     
 
         public async Task<User> FindUserByEmailAsync(string email)
         {

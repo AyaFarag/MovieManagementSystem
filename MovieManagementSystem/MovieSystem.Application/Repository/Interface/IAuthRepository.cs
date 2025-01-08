@@ -11,10 +11,11 @@ namespace MovieSystem.Application.Repository.Interface
 {
     public interface IAuthRepository
     {
-        Task<bool> CreateUserAsync(User user);
+        // CRUD from identity
+        Task<bool> CreateUserAsync(User user, List<string> role);
         Task<User> FindUserByEmailAsync(string email);
         Task<User> FindUserByNameAsync(string UserName);
-        Task<bool> addUserToRoleAsync(User user , string role);
+        Task<bool> addUserToRoleAsync(User user , List<string> role);
         Task<bool> CheckLoginCredentialsAsync(string email, string password);
         Task<IList<string>> GetUserRoles(User user);
         Task<IList<Claim>> GetClaimsAsync(User user);

@@ -43,7 +43,7 @@ namespace MovieSystem.Application.Contracts.Service
                 return new AuthModel { Message = "Email is already registered!" };
             }
              
-            if (await _authRepository.FindUserByNameAsync(model.userName) is not null) // FindUserByUserName
+            if (await _authRepository.FindUserByNameAsync(model.UserName) is not null) // FindUserByUserName
             {
                 _logger.LogInformation("Username is already registered!");
                 return new AuthModel { Message = "Username is already registered!" };
@@ -57,19 +57,31 @@ namespace MovieSystem.Application.Contracts.Service
             _logger.LogInformation("Registering user {Email}", model.Email);
 
             var user =  _mapper.Map<User>(model); // including password
-            var result = await _authRepository.CreateUserAsync(user); // create user
-         //   await _authRepository.addUserToRoleAsync(user, model.Roles); // addUserToRoleAsync
+            var result = await _authRepository.CreateUserAsync(user, model.Roles); // create user
+            //if (result == false)
+            //{
+            //    var errors = string.Empty;
 
+            //    foreach (var error in result.Er)
+            //        errors += $"{error.Description},";
+
+            //    return new AuthModel { Message = errors };
+            //}
+            //var roles = await _authRepository.addUserToRoleAsync(user, model.Roles); // addUserToRoleAsync
+            //if(roles == false) 
+            //{
+            //    return new AuthModel { Message = "Roles is not added" };
+            //}
             var jwtSecurityToken = await CreateJwtToken(user);
 
             return new AuthModel
             {
                 Email = model.Email,
                 ExpiresOn = jwtSecurityToken.ValidTo,
-                IsAuthenticated = true,
-                Roles = new List<string> { "User" },
+                IsAuthenticated = result,
+                Roles = model.Roles,
                 Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
-                Username = model.userName
+                Username = model.UserName
             };
 
         }

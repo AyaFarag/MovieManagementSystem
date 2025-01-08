@@ -12,14 +12,14 @@ namespace MovieSystem.Application.DTO
     public class RegisterModel
     {
         public string Name { get; set; }
-        public string userName { get; set; }
+        public string UserName { get; set; }
 
         [Required, StringLength(50)]
         public string Email { get; set; }
 
         [Required, StringLength(256)]
         public string Password { get; set; }
-       // public string Roles { get; set; }
+        public List<string> Roles { get; set; }
 
 
     }

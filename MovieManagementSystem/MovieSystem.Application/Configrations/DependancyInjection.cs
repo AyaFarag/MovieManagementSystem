@@ -47,10 +47,10 @@ namespace MovieSystem.Application.Configrations
 
 
 
-
-
-            services.AddAutoMapper(typeof(MovieProfile).Assembly);
             services.AddAutoMapper(typeof(UserProfile).Assembly);
+            services.AddAutoMapper(typeof(CategoryProfile).Assembly);
+            services.AddAutoMapper(typeof(MovieProfile).Assembly);
+            
 
 
             //services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

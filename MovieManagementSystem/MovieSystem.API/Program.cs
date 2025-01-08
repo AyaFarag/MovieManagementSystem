@@ -14,6 +14,7 @@ using MovieSystem.Application.Extentions;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// use custom models like reviews in infrastructure and call them in application layer
 // Azure DevOps
 // Git version control
 // Security Layers: validation - error handling - middlewate - logging - token - policy - API sesurity - API headers - API Versioning 

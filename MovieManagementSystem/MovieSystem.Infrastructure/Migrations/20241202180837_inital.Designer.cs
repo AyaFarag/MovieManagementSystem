@@ -12,7 +12,7 @@ using MovieSystem.Infrastructure.Presistance.Data;
 namespace MovieSystem.Infrastructure.Migrations
 {
     [DbContext(typeof(DBContextApplication))]
-    [Migration("20241124173521_inital")]
+    [Migration("20241202180837_inital")]
     partial class inital
     {
         /// <inheritdoc />
@@ -311,13 +311,13 @@ namespace MovieSystem.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "07f50c4d-46ca-48bd-8dbb-b1233ca56f7e",
+                            Id = "b4aa13fb-e6cf-4631-88d8-f0fced6fee23",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "59df3f71-be8e-4662-a30f-cf130a3bc67b",
+                            Id = "92e3819f-2170-42b5-b9e3-86139512a238",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -401,18 +401,18 @@ namespace MovieSystem.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "081badbe-0331-4e08-8e5c-e24707ed0de2",
+                            Id = "dd63e656-a21c-463c-a85c-e73006d5369a",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "944dc566-6233-4092-ace1-3c46ae8cef15",
+                            ConcurrencyStamp = "61abe04f-1c96-4cca-ac76-f30f239443f4",
                             Email = "admin@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             Name = "admin",
                             NormalizedEmail = "ADMIN@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEDFaPDOrlOWq3B51QSN+vPk4rUoGHIjJp7AjAC4odPYpTideBC5BEk53eEcZq1Ky1w==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEE1l6gEruCXfTA8nGOz6IoaBvf0L5hBOD/JkiDrGyDVii9YHDUBOrTDzOk8LCC6eiw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "4fdaaa5f-4f8f-4c9f-b965-75cc0a8daaa7",
+                            SecurityStamp = "ffb93b73-3ed6-4c13-b850-219215c8b094",
                             TwoFactorEnabled = false,
                             UserName = "admin",
                             isAdmin = false,
@@ -447,21 +447,21 @@ namespace MovieSystem.Infrastructure.Migrations
                             Id = 1,
                             ClaimType = "Permission",
                             ClaimValue = "ViewRecords",
-                            RoleId = "07f50c4d-46ca-48bd-8dbb-b1233ca56f7e"
+                            RoleId = "b4aa13fb-e6cf-4631-88d8-f0fced6fee23"
                         },
                         new
                         {
                             Id = 2,
                             ClaimType = "Permission",
                             ClaimValue = "EditRecords",
-                            RoleId = "07f50c4d-46ca-48bd-8dbb-b1233ca56f7e"
+                            RoleId = "b4aa13fb-e6cf-4631-88d8-f0fced6fee23"
                         },
                         new
                         {
                             Id = 3,
                             ClaimType = "Permission",
                             ClaimValue = "DeleteRecords",
-                            RoleId = "07f50c4d-46ca-48bd-8dbb-b1233ca56f7e"
+                            RoleId = "b4aa13fb-e6cf-4631-88d8-f0fced6fee23"
                         });
                 });
 
@@ -477,14 +477,14 @@ namespace MovieSystem.Infrastructure.Migrations
                             Id = 1,
                             ClaimType = "Permission",
                             ClaimValue = "ViewRecords",
-                            UserId = "081badbe-0331-4e08-8e5c-e24707ed0de2"
+                            UserId = "dd63e656-a21c-463c-a85c-e73006d5369a"
                         },
                         new
                         {
                             Id = 2,
                             ClaimType = "Permission",
                             ClaimValue = "EditRecords",
-                            UserId = "081badbe-0331-4e08-8e5c-e24707ed0de2"
+                            UserId = "dd63e656-a21c-463c-a85c-e73006d5369a"
                         });
                 });
 
@@ -497,8 +497,8 @@ namespace MovieSystem.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "081badbe-0331-4e08-8e5c-e24707ed0de2",
-                            RoleId = "07f50c4d-46ca-48bd-8dbb-b1233ca56f7e"
+                            UserId = "dd63e656-a21c-463c-a85c-e73006d5369a",
+                            RoleId = "b4aa13fb-e6cf-4631-88d8-f0fced6fee23"
                         });
                 });
 

@@ -282,23 +282,23 @@ namespace MovieSystem.Infrastructure.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "07f50c4d-46ca-48bd-8dbb-b1233ca56f7e", null, "Admin", "ADMIN" },
-                    { "59df3f71-be8e-4662-a30f-cf130a3bc67b", null, "User", "USER" }
+                    { "92e3819f-2170-42b5-b9e3-86139512a238", null, "User", "USER" },
+                    { "b4aa13fb-e6cf-4631-88d8-f0fced6fee23", null, "Admin", "ADMIN" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "isAdmin", "isPaid" },
-                values: new object[] { "081badbe-0331-4e08-8e5c-e24707ed0de2", 0, "944dc566-6233-4092-ace1-3c46ae8cef15", "admin@example.com", true, false, null, "admin", "ADMIN@EXAMPLE.COM", "ADMIN", "AQAAAAIAAYagAAAAEDFaPDOrlOWq3B51QSN+vPk4rUoGHIjJp7AjAC4odPYpTideBC5BEk53eEcZq1Ky1w==", null, false, "4fdaaa5f-4f8f-4c9f-b965-75cc0a8daaa7", false, "admin", false, false });
+                values: new object[] { "dd63e656-a21c-463c-a85c-e73006d5369a", 0, "61abe04f-1c96-4cca-ac76-f30f239443f4", "admin@example.com", true, false, null, "admin", "ADMIN@EXAMPLE.COM", "ADMIN", "AQAAAAIAAYagAAAAEE1l6gEruCXfTA8nGOz6IoaBvf0L5hBOD/JkiDrGyDVii9YHDUBOrTDzOk8LCC6eiw==", null, false, "ffb93b73-3ed6-4c13-b850-219215c8b094", false, "admin", false, false });
 
             migrationBuilder.InsertData(
                 table: "RolePermission",
                 columns: new[] { "Id", "ClaimType", "ClaimValue", "Discriminator", "RoleId" },
                 values: new object[,]
                 {
-                    { 1, "Permission", "ViewRecords", "RolePermission", "07f50c4d-46ca-48bd-8dbb-b1233ca56f7e" },
-                    { 2, "Permission", "EditRecords", "RolePermission", "07f50c4d-46ca-48bd-8dbb-b1233ca56f7e" },
-                    { 3, "Permission", "DeleteRecords", "RolePermission", "07f50c4d-46ca-48bd-8dbb-b1233ca56f7e" }
+                    { 1, "Permission", "ViewRecords", "RolePermission", "b4aa13fb-e6cf-4631-88d8-f0fced6fee23" },
+                    { 2, "Permission", "EditRecords", "RolePermission", "b4aa13fb-e6cf-4631-88d8-f0fced6fee23" },
+                    { 3, "Permission", "DeleteRecords", "RolePermission", "b4aa13fb-e6cf-4631-88d8-f0fced6fee23" }
                 });
 
             migrationBuilder.InsertData(
@@ -306,14 +306,14 @@ namespace MovieSystem.Infrastructure.Migrations
                 columns: new[] { "Id", "ClaimType", "ClaimValue", "Discriminator", "UserId" },
                 values: new object[,]
                 {
-                    { 1, "Permission", "ViewRecords", "UserPermission", "081badbe-0331-4e08-8e5c-e24707ed0de2" },
-                    { 2, "Permission", "EditRecords", "UserPermission", "081badbe-0331-4e08-8e5c-e24707ed0de2" }
+                    { 1, "Permission", "ViewRecords", "UserPermission", "dd63e656-a21c-463c-a85c-e73006d5369a" },
+                    { 2, "Permission", "EditRecords", "UserPermission", "dd63e656-a21c-463c-a85c-e73006d5369a" }
                 });
 
             migrationBuilder.InsertData(
                 table: "UserRole",
                 columns: new[] { "RoleId", "UserId", "Discriminator" },
-                values: new object[] { "07f50c4d-46ca-48bd-8dbb-b1233ca56f7e", "081badbe-0331-4e08-8e5c-e24707ed0de2", "UserRole" });
+                values: new object[] { "b4aa13fb-e6cf-4631-88d8-f0fced6fee23", "dd63e656-a21c-463c-a85c-e73006d5369a", "UserRole" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Movies_CategoryId",
